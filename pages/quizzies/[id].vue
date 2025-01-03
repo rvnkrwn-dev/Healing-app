@@ -70,7 +70,7 @@
           :disabled="loading"
           class="w-full bg-teal-500 hover:bg-teal-600 text-white font-semibold py-3 rounded-lg"
       >
-        Yuk, Lihat Hasilnya
+        {{ loading ? 'Loading...' : 'Yuk, Lihat Hasilnya' }}
       </button>
     </div>
 
