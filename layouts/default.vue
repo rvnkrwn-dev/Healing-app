@@ -116,6 +116,7 @@
       </nav>
     </header>
     <!-- ========== END HEADER ========== -->
+    <ChatModal />
     <div class="h-screen">
       <slot/>
     </div>
@@ -123,6 +124,8 @@
 </template>
 
 <script setup lang="ts">
+import ChatModal from "~/components/modal/ChatModal.vue";
+
 const { $toast } = useNuxtApp();
 const {isLoggedIn, logout, useAuthUser} = useAuth()
 
