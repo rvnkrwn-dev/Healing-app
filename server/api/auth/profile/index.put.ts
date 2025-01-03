@@ -38,8 +38,6 @@ export default defineEventHandler(async (event) => {
                 name,  // Include the name in the profile creation
             };
 
-            console.log('Creating new user profile:', createPayload);
-
             const createdUserProfile = await UserProfile.createUserProfile(createPayload);
 
             // Log the action

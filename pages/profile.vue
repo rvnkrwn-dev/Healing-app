@@ -57,12 +57,12 @@
 
             <!-- phoneNumber Number Input -->
             <div class="grid sm:grid-cols-3">
-              <label for="phoneNumber" class="block text-sm font-medium mb-2 w-full">phoneNumber Number</label>
+              <label for="phoneNumber" class="block text-sm font-medium mb-2 w-full">Phone</label>
               <input type="text" id="phoneNumber"
                      v-model="phoneNumber"
                      :disabled="!editable"
                      class="col-span-2 py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
-                     placeholder="Enter your phoneNumber number">
+                     placeholder="Enter your number">
             </div>
 
             <div class="space-x-3 flex justify-end">
@@ -147,8 +147,10 @@ onMounted(() => {
   if (!user.value) return navigateTo('/')
   name.value = user.value?.full_name
   email.value = user.value?.email
-  phoneNumber.value = user.value?.profile[0]?.phoneNumber
-  bod.value = new Date(user.value?.profile[0]?.bod).toISOString().split('T')[0]
-  gender.value = user.value?.profile[0]?.gender
+  if (user.value?.profile?.length > 0) {
+    phoneNumber.value = user.value?.profile[0]?.phoneNumber
+    bod.value = new Date(user.value?.profile[0]?.bod).toISOString().split('T')[0]
+    gender.value = user.value?.profile[0]?.gender
+  }
 })
 </script>

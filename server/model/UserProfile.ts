@@ -12,11 +12,11 @@ export class UserProfile {
                 bod: data.bod,   // Optional, if provided
                 gender: data.gender,     // Optional, if provided
                 phoneNumber: data.phoneNumber, // Optional, if provided
-                user: {
-                    connect: {
-                        id: data.user_id,  // Ensure the correct user_id is passed here
-                    },
-                },
+                // user: {
+                //     connect: {
+                //         id: data.user_id,  // Ensure the correct user_id is passed here
+                //     },
+                // },
             },
         });
     };
