@@ -1,5 +1,13 @@
 <template>
   <div class="max-w-[85rem] mx-auto p-6">
+    <div v-if="isLoading" class="flex justify-center items-center space-x-2">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-teal-500 animate-spin" viewBox="0 0 24 24"
+           fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-opacity=".25" class="opacity-75"/>
+        <path d="M4 12a8 8 0 1 1 16 0A8 8 0 0 1 4 12Z" fill="currentColor"/>
+      </svg>
+      <span class="text-teal-500">Loading...</span>
+    </div>
     <div class="p-6 mt-10 h-fit flex flex-col bg-white border shadow-sm rounded-xl space-y-4">
       <!-- Header -->
       <div>
@@ -76,7 +84,7 @@
                 <button type="submit"
                         class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-teal-500 bg-teal-500 text-white hover:bg-teal-600 focus:outline-none focus:bg-teal-600"
                         :disabled="isLoading">
-                  Save
+                  {{ isLoading ? 'Load' : 'Save' }}
                 </button>
               </template>
               <template v-else>

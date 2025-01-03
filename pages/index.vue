@@ -82,6 +82,14 @@
               </h2>
             </div>
 
+            <div v-if="loadingGraph" class="flex justify-center items-center space-x-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-teal-500 animate-spin" viewBox="0 0 24 24"
+                   fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-opacity=".25" class="opacity-75"/>
+                <path d="M4 12a8 8 0 1 1 16 0A8 8 0 0 1 4 12Z" fill="currentColor"/>
+              </svg>
+              <span class="text-teal-500">Loading...</span>
+            </div>
             <div>
               <div class="relative">
                 <client-only>
@@ -136,6 +144,14 @@
           </div>
           <!-- End Header -->
 
+          <div v-if="loading" class="flex justify-center items-center space-x-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-teal-500 animate-spin" viewBox="0 0 24 24"
+                 fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-opacity=".25" class="opacity-75"/>
+              <path d="M4 12a8 8 0 1 1 16 0A8 8 0 0 1 4 12Z" fill="currentColor"/>
+            </svg>
+            <span class="text-teal-500">Loading...</span>
+          </div>
           <div v-if="stats.categoryRatios" id="hs-single-area-chart"
                class="h-full w-full flex flex-col justify-center items-center p-2">
             <client-only>
@@ -179,7 +195,8 @@ import QuizSection from "~/components/card/QuizSection.vue";
 const {isLoggedIn} = useAuth()
 
 const isLogged = computed(() => isLoggedIn().value)
-
+const loading = ref(false);  // Track loading state
+const loadingGraph = ref(false);  // Track loading state
 const dataHealthGraph = ref({})
 const year = ref(new Date().getFullYear())
 const statsData: any = ref({
@@ -201,6 +218,7 @@ const graphData: any = computed(() => dataHealthGraph.value)
 
 const fetchStatsData = async () => {
   try {
+    loadingGraph.value = true;
     const response: any = await useFetchApi('/api/auth/stats')
     statsData.value = response?.data
 
@@ -208,15 +226,16 @@ const fetchStatsData = async () => {
       fields: Object.keys(response?.data?.categoryRatios),
       values: Object.values(response?.data?.categoryRatios)
     }
-
-    console.log(statsData.value)
   } catch (e) {
 
+  } finally {
+    loadingGraph.value = false;
   }
 }
 
 const fetchStuntingDataGraph = async () => {
   try {
+    loading.value = true;
     const response: any = await useFetchApi(`/api/auth/graph?year=${year.value}`)
     dataHealthGraph.value = {
       series: [{
@@ -229,6 +248,8 @@ const fetchStuntingDataGraph = async () => {
     console.log(dataHealthGraph.value)
   } catch (e) {
 
+  } finally {
+    loading.value = false;
   }
 }
 
