@@ -1,6 +1,5 @@
 import bcrypt from 'bcryptjs';
 import {User} from '~/server/model/User';
-import {SendEmailRegister} from "~/server/utils/SendEmailRegister";
 import {RegisterRequest, RegisterResponse} from "~/types/AuthType";
 
 export default defineEventHandler(async (event) => {
@@ -22,7 +21,6 @@ export default defineEventHandler(async (event) => {
         });
 
         setResponseStatus(event, 201);
-        await SendEmailRegister(user.email, user.full_name);
 
         return <RegisterResponse>{
             code: 201,
