@@ -33,7 +33,9 @@ export class UserQuizResult {
         });
     };
 
-    static async countAllUserQuizResults() {
-        return prisma.userQuizResult.count();
+    static async countAllUserQuizResults(user_id: number) {
+        return prisma.userQuizResult.count({
+            where: { user_id },
+        });
     }
 }

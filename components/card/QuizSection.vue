@@ -20,23 +20,23 @@
 
       <template v-if="quizzes.length > 0">
       <!-- Quiz Cards -->
-      <NuxtLink v-for="quiz in quizzes" :key="quiz.id" :to="`/quizzies/${quiz.id}`" class="flex flex-col bg-white border shadow-sm rounded-xl">
+      <div v-for="quiz in quizzes" :key="quiz.id" class="flex flex-col bg-white border shadow-sm rounded-xl">
         <div class="p-4 md:p-5 space-y-2">
           <div class="flex items-center justify-between">
             <p class="text-xs uppercase tracking-wide font-semibold">
               {{ quiz.title }}
             </p>
             <div class="space-x-2">
-              <span
-                  class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded text-xs font-medium border border-teal-500 text-teal-500 cursor-pointer">
+              <NuxtLink :to="`/quizzies/${quiz.id}`"
+                  class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded text-xs font-medium border border-teal-500 text-teal-500 hover:text-white hover:bg-teal-500 cursor-pointer">
                 Take
-              </span>
+              </NuxtLink>
             </div>
           </div>
           <p class="max-w-5xl">{{ quiz.description }}</p>
           <p class="text-xs text-gray-400">Created on: {{ formatDate(quiz.created_at) }}</p>
         </div>
-      </NuxtLink>
+      </div>
       <!-- End Quiz Cards -->
       </template>
 

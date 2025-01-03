@@ -55,7 +55,6 @@
                   </NuxtLink>
 
                   <NuxtLink
-                      v-if="user?.role?.toString().toLowerCase() === 'admin'"
                       class="p-2 flex items-center text-sm text-cyan-800 hover:bg-cyan-100 rounded-lg focus:outline-none"
                       to="/quizzies" active-class="bg-cyan-100">
                     <svg class="shrink-0 size-4 me-3 md:me-2 block md:hidden" xmlns="http://www.w3.org/2000/svg"
@@ -64,7 +63,7 @@
                       <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
                       <circle cx="12" cy="7" r="4"/>
                     </svg>
-                    Quiz Management
+                    Quiz
                   </NuxtLink>
 
                   <NuxtLink
@@ -133,10 +132,10 @@ const handleLogout = async () => {
   try {
     if (!window.confirm("Are you sure you want to logout?")) return;
     await logout()
+    $toast('Berhasil menghapus sesi masuk.', 'success'); // Menampilkan pesan kesalahan menggunakan toast
   } catch (error: any) {
     return
   } finally {
-    $toast('Berhasil menghapus sesi masuk.', 'success'); // Menampilkan pesan kesalahan menggunakan toast
     navigateTo('/login'); // Setelah logout berhasil, arahkan ke halaman login
   }
 }

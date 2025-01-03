@@ -21,7 +21,7 @@ export default defineEventHandler(async (event) => {
 
         const userQuizResults = await UserQuizResult.getAllUserQuizResults(id, page, pageSize);
 
-        const totalUserQuizResults = await UserQuizResult.countAllUserQuizResults();
+        const totalUserQuizResults = await UserQuizResult.countAllUserQuizResults(id);
         const totalPages = Math.ceil(totalUserQuizResults / pageSize);
 
         const baseUrl = "/api/auth/user-quiz-results";

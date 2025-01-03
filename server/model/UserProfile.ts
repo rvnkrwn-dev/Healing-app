@@ -5,26 +5,29 @@ const prisma = new PrismaClient();
 
 
 export class UserProfile {
-    static createUserProfile = (user_id: number, data: UserProfileRequest) => {
+    static createUserProfile = (data: any) => {
         return prisma.userProfile.create({
             data: {
+                user_id: data.user_id,  // Ensure this is passed correctly
+                bod: data.bod,   // Optional, if provided
+                gender: data.gender,     // Optional, if provided
+                phoneNumber: data.phoneNumber, // Optional, if provided
                 user: {
-                    connect: {id: user_id}
+                    connect: {
+                        id: data.user_id,  // Ensure the correct user_id is passed here
+                    },
                 },
-                bod: data.bod,
-                gender: data.gender,
-                phoneNumber: data.phoneNumber,
-            }
+            },
         });
     };
 
-    static updateUserProfile = (user_id: number, data: UpdateUserProfileRequest) => {
+    static updateUserProfile = (user_id: number, data: any) => {
         return prisma.userProfile.update({
             where: { user_id: user_id },
             data: {
-                bod: data.dateOfBirth,
-                gender: data.gender,
-                phoneNumber: data.phoneNumber,
+                bod: data?.bod,
+                gender: data?.gender,
+                phoneNumber: data?.phoneNumber
             }
         });
     };

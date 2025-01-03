@@ -4,73 +4,75 @@
       <!-- Header -->
       <div class="flex items-center justify-between">
         <h2 class="text-sm text-gray-500">
-         Daftar Quizzes
+          Daftar Quizzes
         </h2>
-        <button type="button"
-                class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-teal-500 text-white hover:bg-teal-700 focus:outline-none focus:bg-teal-700 disabled:opacity-50 disabled:pointer-events-none"
-                aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-scale-animation-modal"
-                data-hs-overlay="#hs-scale-animation-modal">
-          New Quiz
-        </button>
+        <template v-if="user?.role?.toString().toLowerCase() === 'admin'">
+          <button type="button"
+                  class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-teal-500 text-white hover:bg-teal-700 focus:outline-none focus:bg-teal-700 disabled:opacity-50 disabled:pointer-events-none"
+                  aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-scale-animation-modal"
+                  data-hs-overlay="#hs-scale-animation-modal">
+            New Quiz
+          </button>
 
-        <div id="hs-scale-animation-modal"
-             class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto pointer-events-none"
-             role="dialog" tabindex="-1" aria-labelledby="hs-scale-animation-modal-label">
-          <div
-              class="hs-overlay-animation-target hs-overlay-open:scale-100 hs-overlay-open:opacity-100 scale-95 opacity-0 ease-in-out transition-all duration-200 sm:max-w-lg sm:w-full m-3 sm:mx-auto min-h-[calc(100%-3.5rem)] flex items-center">
-            <div class="w-full flex flex-col bg-white border shadow-sm rounded-xl pointer-events-auto">
-              <div class="flex justify-between items-center py-3 px-4 border-b">
-                <h3 id="hs-scale-animation-modal-label" class="font-bold text-gray-800">
-                  AI Generate
-                </h3>
-                <button type="button"
-                        class="size-8 inline-flex justify-center items-center gap-x-2 rounded-full border border-transparent bg-gray-100 text-gray-800 hover:bg-gray-200 focus:outline-none focus:bg-gray-200 disabled:opacity-50 disabled:pointer-events-none"
-                        aria-label="Close" data-hs-overlay="#hs-scale-animation-modal">
-                  <span class="sr-only">Close</span>
-                  <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                       viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                       stroke-linejoin="round">
-                    <path d="M18 6 6 18"></path>
-                    <path d="m6 6 12 12"></path>
-                  </svg>
-                </button>
-              </div>
-              <form id="form-generate-quiz" @submit.prevent="handleGenerateQuiz">
-                <div class="p-4 overflow-y-auto space-y-5">
-                  <div>
-                    <label for="title" class="block text-sm font-medium mb-2">Title</label>
-                    <input type="text" id="title"
-                           v-model="title"
-                           class="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
-                           placeholder="This is placeholder" required>
-                  </div>
-                  <div>
-                    <label for="description" class="block text-sm font-medium mb-2">Description</label>
-                    <textarea
-                        id="description"
-                        v-model="description"
-                        class="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
-                        rows="3" placeholder="Say hi..." data-hs-textarea-auto-height="" required></textarea>
-                  </div>
+          <div id="hs-scale-animation-modal"
+               class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto pointer-events-none"
+               role="dialog" tabindex="-1" aria-labelledby="hs-scale-animation-modal-label">
+            <div
+                class="hs-overlay-animation-target hs-overlay-open:scale-100 hs-overlay-open:opacity-100 scale-95 opacity-0 ease-in-out transition-all duration-200 sm:max-w-lg sm:w-full m-3 sm:mx-auto min-h-[calc(100%-3.5rem)] flex items-center">
+              <div class="w-full flex flex-col bg-white border shadow-sm rounded-xl pointer-events-auto">
+                <div class="flex justify-between items-center py-3 px-4 border-b">
+                  <h3 id="hs-scale-animation-modal-label" class="font-bold text-gray-800">
+                    AI Generate
+                  </h3>
+                  <button type="button"
+                          class="size-8 inline-flex justify-center items-center gap-x-2 rounded-full border border-transparent bg-gray-100 text-gray-800 hover:bg-gray-200 focus:outline-none focus:bg-gray-200 disabled:opacity-50 disabled:pointer-events-none"
+                          aria-label="Close" data-hs-overlay="#hs-scale-animation-modal">
+                    <span class="sr-only">Close</span>
+                    <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                         stroke-linejoin="round">
+                      <path d="M18 6 6 18"></path>
+                      <path d="m6 6 12 12"></path>
+                    </svg>
+                  </button>
                 </div>
-              </form>
-              <div class="flex justify-end items-center gap-x-2 py-3 px-4 border-t">
-                <button type="button"
-                        id="close-btn"
-                        class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none"
-                        data-hs-overlay="#hs-scale-animation-modal">
-                  Close
-                </button>
-                <button type="submit"
-                        form="form-generate-quiz"
-                        :disabled="loading"
-                        class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-teal-500 text-white hover:bg-teal-700 focus:outline-none focus:bg-teal-700 disabled:opacity-50 disabled:pointer-events-none">
-                  Save changes
-                </button>
+                <form id="form-generate-quiz" @submit.prevent="handleGenerateQuiz">
+                  <div class="p-4 overflow-y-auto space-y-5">
+                    <div>
+                      <label for="title" class="block text-sm font-medium mb-2">Title</label>
+                      <input type="text" id="title"
+                             v-model="title"
+                             class="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                             placeholder="This is placeholder" requiteal>
+                    </div>
+                    <div>
+                      <label for="description" class="block text-sm font-medium mb-2">Description</label>
+                      <textarea
+                          id="description"
+                          v-model="description"
+                          class="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                          rows="3" placeholder="Say hi..." data-hs-textarea-auto-height="" requiteal></textarea>
+                    </div>
+                  </div>
+                </form>
+                <div class="flex justify-end items-center gap-x-2 py-3 px-4 border-t">
+                  <button type="button"
+                          id="close-btn"
+                          class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none"
+                          data-hs-overlay="#hs-scale-animation-modal">
+                    Close
+                  </button>
+                  <button type="submit"
+                          form="form-generate-quiz"
+                          :disabled="loading"
+                          class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-teal-500 text-white hover:bg-teal-700 focus:outline-none focus:bg-teal-700 disabled:opacity-50 disabled:pointer-events-none">
+                    Save changes
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </template>
       </div>
       <!-- End Header -->
 
@@ -86,17 +88,17 @@
 
         <!-- Quiz Cards -->
         <div v-for="quiz in quizzes" :key="quiz.id"
-                  class="flex flex-col bg-white border shadow-sm rounded-xl">
+             class="flex flex-col bg-white border shadow-sm rounded-xl">
           <div class="p-4 md:p-5 space-y-2">
             <div class="flex items-center justify-between">
               <p class="text-xs uppercase tracking-wide font-semibold">
                 {{ quiz.title }}
               </p>
               <div class="space-x-2">
-              <span
-                  class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded text-xs font-medium border border-red-500 text-red-500 cursor-pointer hover:bg-red-500 hover:text-white">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
-              </span>
+                <NuxtLink :to="`/quizzies/${quiz.id}`"
+                          class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded text-xs font-medium border border-teal-500 text-teal-500 hover:text-white hover:bg-teal-500 cursor-pointer">
+                  Take
+                </NuxtLink>
               </div>
             </div>
             <p class="max-w-5xl">{{ quiz.description }}</p>
@@ -135,8 +137,10 @@
 </template>
 
 <script setup lang="ts">
+const {useAuthUser} = useAuth()
+const user = computed(() => useAuthUser().value)
 // Define state variables
-const { $toast } = useNuxtApp();
+const {$toast} = useNuxtApp();
 const quizzes = ref<any[]>([]);
 const pagination = ref({
   prev: null,
