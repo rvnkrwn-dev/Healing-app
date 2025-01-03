@@ -67,6 +67,7 @@
     <div class="w-full max-w-3xl mt-6 px-4">
       <button
           @click="submitAnswers"
+          :disabled="loading"
           class="w-full bg-teal-500 hover:bg-teal-600 text-white font-semibold py-3 rounded-lg"
       >
         Yuk, Lihat Hasilnya
