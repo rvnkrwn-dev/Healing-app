@@ -161,6 +161,7 @@ const submitAnswers = async () => {
 
   // Kirim jawaban ke API
   try {
+    loading.value = true;
     const response: any = await useFetchApi("/api/auth/user-quiz-results", {
       method: 'POST',
       body: {
@@ -173,6 +174,8 @@ const submitAnswers = async () => {
     result.value = response.data;  // Pastikan response data sesuai dengan format yang diharapkan
   } catch (error) {
     console.error("Error submitting answers:", error);
+  } finally {
+    loading.value = false;
   }
 };
 
