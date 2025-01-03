@@ -27,6 +27,14 @@
     </div>
 
     <!-- Questions -->
+    <div v-if="loading" class="flex justify-center items-center space-x-2">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-teal-500 animate-spin" viewBox="0 0 24 24"
+           fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-opacity=".25" class="opacity-75"/>
+        <path d="M4 12a8 8 0 1 1 16 0A8 8 0 0 1 4 12Z" fill="currentColor"/>
+      </svg>
+      <span class="text-teal-500">Loading...</span>
+    </div>
     <div class="w-full max-w-3xl mt-6 space-y-6 px-4">
       <div
           v-for="(question, index) in quizData.questions"
@@ -114,16 +122,20 @@ const id = useRoute().params.id
 const options = ref<Record<number, string[]>>({}); // Mapping ID pertanyaan ke opsi jawaban
 const answers = ref<string[]>([]); // Jawaban pengguna
 const result = ref<Result | null>(null); // Hasil kuis
+const loading = ref(false);
 
 // Fetch quiz data from the API
 const fetchQuizData = async () => {
   try {
+    loading.value = true;
     // Ambil data kuis dari API
     const response: any = await useFetchApi(`/api/auth/quiz/${id}`); // Pastikan API ini mengembalikan data kuis yang valid
     quizData.value = response.data;
     options.value = mapOptionsToQuestions(response.data.questions); // Memetakan opsi ke pertanyaan
   } catch (error) {
     console.error("Error fetching quiz data:", error);
+  } finally {
+    loading.value = false;
   }
 };
 
