@@ -83,7 +83,7 @@
             @click="closeQuiz"
             class="mt-4 w-full bg-teal-500 text-white font-semibold py-2 rounded-lg"
         >
-          Tutup
+          Selesai, Kembali
         </button>
       </div>
     </div>
