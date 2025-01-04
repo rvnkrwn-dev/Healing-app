@@ -15,5 +15,20 @@ export default defineNuxtConfig({
     MAIL_FROM_EMAIL: process.env.MAIL_FROM_EMAIL ?? "",
   },
   modules: ['@nuxtjs/tailwindcss'],
-  plugins: ["~/plugins/preline.client.ts"]
+  plugins: ["~/plugins/preline.client.ts"],
+  app: {
+    head: {
+      title: "Healing | Teman Anda dalam Menjaga Kesehatan Mental",
+      htmlAttrs: {
+        lang: 'id'
+      },
+      meta: [
+        {
+          name: 'description',
+          content: 'Healing adalah platform yang mendukung kesehatan mental Anda. Dengan kuis interaktif dan data yang dipersonalisasi, kami membantu Anda memahami, memantau, dan meningkatkan kesejahteraan mental secara sederhana namun mendalam.'
+        }
+      ],
+    },
+  },
+
 })

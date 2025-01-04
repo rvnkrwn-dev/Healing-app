@@ -6,7 +6,8 @@
           class="relative max-w-[85rem] w-full mx-auto md:flex md:items-center md:justify-between md:gap-3 py-3 px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center gap-x-1">
           <NuxtLink class="flex-none font-semibold text-xl text-black focus:outline-none focus:opacity-80" to="#"
-                    aria-label="Healing">Healing
+                    aria-label="Healing">
+            <img src="/logo.png" alt="Healing" height="50" width="50" />
           </NuxtLink>
 
           <!-- Collapse Button -->
@@ -67,6 +68,7 @@
                   </NuxtLink>
 
                   <NuxtLink
+                      v-if="isLogged"
                       class="p-2 flex items-center text-sm text-cyan-800 hover:bg-cyan-100 rounded-lg focus:outline-none"
                       to="/profile" active-class="bg-cyan-100">
                     <svg class="shrink-0 size-4 me-3 md:me-2 block md:hidden" xmlns="http://www.w3.org/2000/svg"
@@ -78,6 +80,19 @@
                       <rect width="20" height="14" x="2" y="6" rx="2"/>
                     </svg>
                     Profile
+                  </NuxtLink>
+
+                  <NuxtLink
+                      v-if="!isLogged"
+                      class="p-2 flex items-center text-sm text-cyan-800 hover:bg-cyan-100 rounded-lg focus:outline-none"
+                      to="/#about-us">
+                    <svg class="shrink-0 size-4 me-3 md:me-2 block md:hidden" xmlns="http://www.w3.org/2000/svg"
+                         width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
+                      <circle cx="12" cy="7" r="4"/>
+                    </svg>
+                    About Us
                   </NuxtLink>
                 </div>
               </div>
@@ -117,9 +132,41 @@
     </header>
     <!-- ========== END HEADER ========== -->
     <ChatModal />
-    <div class="h-screen">
+    <div class="h-fit">
       <slot/>
     </div>
+    <!-- ========== FOOTER ========== -->
+    <footer class="mt-auto w-full max-w-[85rem] py-10 px-4 sm:px-6 lg:px-8 mx-auto">
+      <!-- Grid -->
+      <div class="text-center">
+        <div>
+          <NuxtLink class="flex-none text-xl font-semibold text-teal-500" to="#" aria-label="Brand">Healing</NuxtLink>
+        </div>
+        <!-- End Col -->
+
+        <div class="mt-3">
+          <p class="text-gray-500">
+            © {{ new Date().getFullYear() }} Healing. Semua Hak Dilindungi.
+          </p>
+        </div>
+
+        <!-- Social Brands -->
+        <div class="mt-3 space-x-2">
+          <NuxtLink class="size-8 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-full border border-transparent text-gray-500 hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none" href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+          </NuxtLink>
+          <NuxtLink class="size-8 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-full border border-transparent text-gray-500 hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none" href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          </NuxtLink>
+          <NuxtLink class="size-8 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-full border border-transparent text-gray-500 hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none" href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </NuxtLink>
+        </div>
+        <!-- End Social Brands -->
+      </div>
+      <!-- End Grid -->
+    </footer>
+    <!-- ========== END FOOTER ========== -->
   </div>
 </template>
 
